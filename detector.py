@@ -9,7 +9,7 @@ font = cv2.cv.InitFont(cv2.cv.CV_FONT_HERSHEY_COMPLEX_SMALL,5,1,0,4)
 
 
 while True:
-    color = cv2.imread('user6tdata/user.6.3.jpg')
+    color = cv2.imread('user10tdata/user.10.2.jpg')
 
 
     img = cv2.cvtColor(color, cv2.COLOR_BGR2GRAY)
@@ -20,7 +20,10 @@ while True:
 
         p_image = img[y:y+h,x:x+w]
         img = cv2.resize(p_image,(640,480))
-        id,conf = recognizer.predict(img)
+        gaus = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,23,0)
+        cv2.imshow('gaus',gaus)
+        id,conf = recognizer.predict(gaus)
+
         cv2.cv.PutText(cv2.cv.fromarray(color),str(id),(x,y+h),font,255)
 
 
